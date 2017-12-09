@@ -26,64 +26,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func imagePickerController(_ imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        print("5")
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            print("6")
             cameraView.contentMode = .scaleAspectFit
             let data: Data = UIImagePNGRepresentation(pickedImage)!
-            print("7")
-            let token = Data()
-            
-            print(token)
             cameraView.image = pickedImage
         }
-        //閉じる処理
         imagePicker.dismiss(animated: true, completion: nil)
         label.text = "Tap the [Save] to save a picture"
         
     }
     
-    // 撮影がキャンセルされた時に呼ばれる
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
         label.text = "Canceled"
     }
     
     @IBAction func savePicture(_ sender: Any) {
-//        let image:UIImage! = cameraView.image
-//        if image != nil {
-//            UIImageWriteToSavedPhotosAlbum(image, self,#selector(ViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
-//        }
-//        else{
-//            label.text = "image Failed !"
-//        }
-//    }
-//
-//    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
-//        if error != nil {
-//            print(error.code)
-//            label.text = "Save Failed !"
-//        }
-//        else{
-//            print(image)
-//            label.text = "Save Succeeded"
-//        }
         Purse.postBook()
     }
-    
     
     @IBAction func showAlbum(_ sender: Any) {
         let sourceType: UIImagePickerControllerSourceType = UIImagePickerControllerSourceType.photoLibrary
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
-            // インスタンスの作成
             let cameraPicker = UIImagePickerController()
-            print("1")
             cameraPicker.sourceType = sourceType
-            print("2")
             cameraPicker.delegate = self
-            print("3")
             self.present(cameraPicker, animated: true, completion: nil)
-            print("4")
             label.text = "Tap the [Start] to save a picture"
         }
         else{
@@ -94,12 +62,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         label.text = "Tap the [Start] to take a picture"
-        guard let image: UIImage = UIImage(named: "sample.jpg") else { return }
+        guard let image: UIImage = UIImage(named: "sample.jpg") else { return }  //シュミレータはカメラを起動できないため、デフォルトで写真をセット。
         cameraView.image = image
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
 }

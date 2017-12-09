@@ -25,7 +25,6 @@ class Purse {
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             multipartFormData.append(UIImageJPEGRepresentation(image, 0.5)!, withName: "image1", fileName: "sanple.jpg", mimeType: "image/jpeg")
             multipartFormData.append(jsonData, withName: "book")
-//            multipartFormData.append(parameters)
         }, to:URL)
         { (result) in
             
